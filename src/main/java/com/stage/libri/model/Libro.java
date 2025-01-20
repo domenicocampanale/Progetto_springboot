@@ -2,8 +2,6 @@ package com.stage.libri.model;
 
 import java.io.Serializable;
 
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "libro")
@@ -24,11 +23,11 @@ public class Libro implements Serializable {
 	private Long id;
 
 	@Column(name = "titolo", nullable = false)
-	@NotBlank(message = "Il titolo non può essere nullo o vuoto.")
+	@Size(min = 1, max = 100, message = "Il titolo deve avere un minimo e massimo numero di caratteri")
 	private String titolo;
 
 	@Column(name = "autore", nullable = false)
-	@NotBlank(message = "L'autore non può essere nullo o vuoto.")
+	@Size(min = 1, max = 50, message = "L'autore deve avere un minimo e massimo numero di caratteri")
 	private String autore;
 
 	@Column(name = "anno_pubblicazione", nullable = false)
@@ -36,22 +35,22 @@ public class Libro implements Serializable {
 	private int anno_pubblicazione;
 
 	@Column(name = "categoria", nullable = false)
-	@NotBlank(message = "La categoria non può essere nulla o vuota.")
+	@Size(min = 1, max = 50, message = "La categoria deve avere un minimo e massimo numero di caratteri")
 	private String categoria;
 
 	@Column(name = "prezzo", nullable = false)
-	@Min(value = (long) 0.5, message = "L'anno di pubblicazione deve essere maggiore o uguale a 50 centesimi")
+	@Min(value = (long) 0.5, message = "Il prezzo deve essere almeno di 50 centesimi")
 	private double prezzo;
 
 	public Libro() {
 
 	}
 
-	public Long getid() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setid(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
